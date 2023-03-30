@@ -1,4 +1,5 @@
 var video;
+var volume_value;
 
 window.addEventListener("load", function () {
 	console.log("Good job opening the window")
@@ -48,19 +49,26 @@ document.querySelector("#mute").addEventListener("click", function () {
 	if (isMuted === false){
 		video.muted = true;
 		isMuted = true;
+		document.getElementById('mute').innerHTML = "Unmute";
 		console.log("Muted");
 	}
 	else{
 		video.muted = false;
 		isMuted = false;
-		console.log("Unmute")
+		document.getElementById('mute').innerHTML = "Mute";
+		console.log("Unmuted")
 	}
 });
 
-// document.querySelector("#mute").addEventListener("click", function () {
-// video.setVolume(slider.value());
+document.querySelector("#slider").addEventListener("change", function() {
+	video.volume = document.querySelector("#slider").value / 100;
+	document.querySelector("#volume").innerHTML = (video.volume * 100) + '%';
+});
 
-// document.querySelector("#vintage").addEventListener("click", function () {
+document.querySelector("#vintage").addEventListener("click", function () {
+	video.classList.add('oldSchool');
+})
 
-// });
-
+document.querySelector("#orig").addEventListener("click", function() {
+	video.classList.remove('oldSchool');
+})
