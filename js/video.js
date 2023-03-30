@@ -7,13 +7,13 @@ window.addEventListener("load", function () {
 	video = document.getElementById('player1');
 	video.removeAttribute('autoplay');
 	console.log("got rid of autoplay")
+	document.getElementById('player1').removeAttribute("loop");
+	console.log("got rid of loop")
 });
 
 document.querySelector("#play").addEventListener("click", function () {
 	console.log("Play Video");
 	video.play();
-	document.getElementById('player1').removeAttribute("loop");
-	console.log("got rid of loop")
 
 });
 
@@ -35,11 +35,14 @@ document.querySelector("#faster").addEventListener("click", function () {
 	console.log("Speed is ", video.playbackRate)
 });
 
-document.getElementById('player1').onended = function(){video.currentTime = 0
-console.log(video.currentTime)};
-
 document.querySelector("#skip").addEventListener("click", function () {
-	video.currentTime += 10;
+	if ((video.currentTime + 10) >= video.duration) {
+		video.currentTime = 0;
+		video.autoplay = false;
+	}
+	else {
+		video.currentTime += 10;
+	}
 	console.log("Skip ahead")
 	console.log("Video current time is ", video.currentTime)
 });
@@ -62,7 +65,7 @@ document.querySelector("#mute").addEventListener("click", function () {
 
 document.querySelector("#slider").addEventListener("change", function() {
 	video.volume = document.querySelector("#slider").value / 100;
-	document.querySelector("#volume").innerHTML = (video.volume * 100) + '%';
+	document.getElementById('volume').innerHTML = (video.volume * 100) + '%';
 });
 
 document.querySelector("#vintage").addEventListener("click", function () {
